@@ -1,0 +1,33 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_width="match_parent"
+
+    android:layout_height="match_parent"
+
+    android:orientation="vertical">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="230px"
+        android:text="Power 1"
+        android:id="@+id/bPower1"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="230px"
+        android:text="Power 2"
+        android:id="@+id/bPower2"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="230px"
+        android:text="Power 3"
+        android:id="@+id/bPower3"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="230px"
+        android:text="Power 4"
+        android:id="@+id/bPower4"/>
+
+</LinearLayout>
