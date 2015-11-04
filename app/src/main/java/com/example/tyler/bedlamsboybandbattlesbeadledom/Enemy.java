@@ -9,7 +9,7 @@ public class Enemy {
     public int health;
     public int mana;
     public double speed;
-    public Power[] whatFucksYou;
+    Power[] whatFucksYou = new Power[4];
     public char defenseType;
 
     // public artificialIntelligence brain;
@@ -20,10 +20,10 @@ public class Enemy {
         this.health = health;
         this.mana = mana;
         this.speed = speed;
-        whatFucksYou[0] = first;
-        whatFucksYou[1] = second;
-        whatFucksYou[2] = third;
-        whatFucksYou[3] = fourth;
+        whatFucksYou[0] = new Power(first);
+        whatFucksYou[1] = new Power(second);
+        whatFucksYou[2] = new Power(third);
+        whatFucksYou[3] = new Power(fourth);
         this.defenseType = defenseType;
     }
 

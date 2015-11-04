@@ -13,6 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         //You have made a deal with a Faustian alien cat. You temporarily use the powers of a magical girl
         Power loliTransformation = new Power("Mahou Shoujo", 'T', 'D', 40);
 
-        Hero NickSink = new Hero("Nick Sink", 50, 20, 6, 'J', twinTail, nyan, loliTransformation, excalibur);
+        Hero NickSink = new Hero("Nick Sink", 200, 20, 6, 'J', twinTail, nyan, loliTransformation, excalibur);
 
         Power roulette = new Power("Bet on the ball", 'G', 'S', 20);
 
@@ -54,15 +56,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
     }
 
     @Override
@@ -97,16 +90,11 @@ public class MainActivity extends AppCompatActivity {
         wait(500);
         ll.addView(tv);
 
+        boolean playerInitGreater = false;
+        playerInitGreater = initiationCheck(player.speed, badGuy.speed, player.name, badGuy.name, tv);
 
-        double playerInitiationRoll = Math.random();
-        double enemyInitiationRoll = Math.random();
-        double playerInitiation = player.speed + playerInitiationRoll * 10;
-        tv.setText("You rolled" + playerInitiation);
-        wait(500);
-        double enemyInitiation = badGuy.speed + enemyInitiationRoll * 10;
-        tv.setText(badGuy.name + " rolled " + enemyInitiation);
-        wait(500);
         while(player.health > 0 && badGuy.health >0){
+
             int playerChoice;
             playerChoice = choice(player);
             int enemyChoice = choice(badGuy);
@@ -116,28 +104,26 @@ public class MainActivity extends AppCompatActivity {
             bHPmod = attackCalculator(player.skillset[playerChoice], badGuy.defenseType);
             pHPmod = attackCalculator(badGuy.whatFucksYou[enemyChoice], player.defenseType);
 
-            if(playerInitiation >  enemyInitiation){
+
+
+            if(playerInitGreater){
 
 
                 badGuy.health -= bHPmod;
-                tv.setText(player.name + " attacked with " + player.skillset[playerChoice] + ". " + badGuy.name + " took " + bHPmod + " damage. " + badGuy.name + " now has " + badGuy.health + " remaining." );
-                wait(500);
+                combatText(player.name, badGuy.name, player.skillset[playerChoice].name, bHPmod, badGuy.health, tv);
                 if(badGuy.health > 0) {
 
                     player.health -= pHPmod;
-                    tv.setText(badGuy.name + " attacked with " + badGuy.whatFucksYou[enemyChoice] + ". " + player.name + " took " + pHPmod + " damage. " + player.name + " now has " + player.health + " remaining." );
-                    wait(500);
+                    combatText(badGuy.name, player.name, badGuy.whatFucksYou[enemyChoice].name, pHPmod, player.health, tv);
                 }
             }
 
             else{
                 player.health -= attackCalculator(badGuy.whatFucksYou[enemyChoice], player.defenseType);
-                tv.setText(badGuy.name + " attacked with " + badGuy.whatFucksYou[enemyChoice] + ". " + player.name + " took " + pHPmod + " damage. " + player.name + " now has " + player.health + " remaining." );
-                wait(500);
+                combatText(badGuy.name, player.name, badGuy.whatFucksYou[enemyChoice].name, pHPmod, player.health, tv);
                 if(player.health > 0) {
                     badGuy.health -= attackCalculator(player.skillset[playerChoice], badGuy.defenseType);
-                    tv.setText(player.name + " attacked with " + player.skillset[playerChoice] + ". " + badGuy.name + " took " + bHPmod + " damage. " + badGuy.name + " now has " + badGuy.health + " remaining." );
-                    wait(500);
+                    combatText(player.name, badGuy.name, player.skillset[playerChoice].name, bHPmod, badGuy.health, tv);
                 }
             }
 
@@ -207,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
         return (int) healthModification;
     }
 
-    public static void wait(int milliseconds){
+    public void wait(int milliseconds){
         try {
             Thread.sleep(milliseconds);
 
@@ -215,16 +201,28 @@ public class MainActivity extends AppCompatActivity {
             ie.printStackTrace();
         }
     }
-    /*@Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // Check which request it is
-        if (requestCode == PICK_CONTACT_REQUEST) {
-            // Make sure the request was successful
-            if (resultCode == RESULT_OK) {
-                retu
-            }
+
+    public void combatText(String attacker, String defender, String attack, int hpChange, int newHealth, TextView log) {
+        log.setText(attacker + " attacked with " + attack + ". " + defender + " took " + hpChange + " damage. " + defender + " now has " + newHealth + " remaining." );
+        wait(500);
+    }
+
+    public boolean initiationCheck(double playerSpeed, double enemySpeed, String playerName, String enemyName, TextView log){
+        double playerInitiationRoll = Math.random();
+        double enemyInitiationRoll = Math.random();
+        double playerInitiation = playerSpeed + playerInitiationRoll * 10;
+        log.setText(playerName + " rolled " + playerInitiation);
+        wait(500);
+        double enemyInitiation = enemySpeed + enemyInitiationRoll * 10;
+        log.setText(enemyName + " rolled " + enemyInitiation);
+        wait(500);
+        if(playerInitiationRoll > enemyInitiationRoll) {
+            return true;
         }
-    }*/
+        else{
+            return false;
+        }
+    }
 
 }
 

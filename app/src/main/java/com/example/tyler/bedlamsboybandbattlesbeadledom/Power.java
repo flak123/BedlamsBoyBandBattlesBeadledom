@@ -16,4 +16,11 @@ public class Power {
         this.damage = damage;
     }
 
+    public Power(Power pass){
+        this.name = pass.name;
+        this.type = pass.type;
+        this.bonusType = pass.bonusType;
+        this.damage = pass.damage;
+    }
+
 }
