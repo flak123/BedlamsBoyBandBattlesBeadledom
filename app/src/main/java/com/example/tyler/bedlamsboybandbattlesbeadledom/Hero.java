@@ -4,7 +4,7 @@ package com.example.tyler.bedlamsboybandbattlesbeadledom;
  * Created by Tyler on 10/25/2015.
  */
 public class Hero {
-    public String name;
+    public final String name;
     public int experiencePoints;
     public int level;
     public int health;
@@ -21,9 +21,9 @@ public class Hero {
         this.mana = mp;
         this.speed = speed;
         this.defenseType = defend;
-        skillset[1] = new Power(howYouAreCool);
-        skillset[2] = new Power(howYouKickAss);
-        skillset[3] = new Power(howYouWillWin);
-        skillset[4] = new Power(howYouBecomeVictorious);
+        skillset[0] = new Power(howYouAreCool);
+        skillset[1] = new Power(howYouKickAss);
+        skillset[2] = new Power(howYouWillWin);
+        skillset[3] = new Power(howYouBecomeVictorious);
     }
 }

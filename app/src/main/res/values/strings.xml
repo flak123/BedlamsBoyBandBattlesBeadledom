@@ -2,4 +2,7 @@
     <string name="app_name">BedlamsBoyBandBattlesBeadledom</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_select_power">selectPower</string>
+    <string name="battleLog">Hello World</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="FIGHT">FIGHT</string>
 </resources>
